@@ -36,9 +36,10 @@ model_mode
 PRMS5
 ####
 param_file
-1
+2
 4
-myparam.param
+./input/yampa.param
+./input/ag.yampa.param
 ####
 data_file
 1
