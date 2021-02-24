@@ -3,7 +3,7 @@ Version : --.--
 ** Dimensions **
 ** Parameters **
 ####
-ag_soil_moist_max
+ag_soil_moist_max 10
 1
 nhru
 92
@@ -101,7 +101,7 @@ nhru
 2.926737
 2.750023
 ####
-ag_soil_moist_init_frac
+ag_soil_moist_init_frac 10
 1
 nhru
 92
@@ -199,7 +199,7 @@ nhru
 0.0
 0.0
 ####
-ag_soil_rechr_max_frac
+ag_soil_rechr_max_frac 10
 1
 nhru
 92
@@ -297,7 +297,7 @@ nhru
 0.542184
 0.52386
 ####
-ag_soil_rechr_init_frac
+ag_soil_rechr_init_frac 10
 1
 nhru
 92
@@ -395,7 +395,7 @@ nhru
 0.0
 0.0
 ####
-sro_to_dprst_ag
+sro_to_dprst_ag 10
 1
 nhru
 92

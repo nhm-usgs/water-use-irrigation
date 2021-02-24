@@ -33,7 +33,7 @@ nssr
 92
 ** Parameters **
 ####
-K_coef
+K_coef 10
 1
 nsegment
 46
@@ -85,7 +85,7 @@ nsegment
 1.245847
 1.375605
 ####
-adjmix_rain
+adjmix_rain 10
 2
 nhru
 nmonths
@@ -1196,35 +1196,35 @@ nmonths
 1.0
 1.0
 ####
-albset_rna
+albset_rna 10
 1
 one
 1
 2
 0.8
 ####
-albset_rnm
+albset_rnm 10
 1
 one
 1
 2
 0.6
 ####
-albset_sna
+albset_sna 10
 1
 one
 1
 2
 0.05
 ####
-albset_snm
+albset_snm 10
 1
 one
 1
 2
 0.2
 ####
-carea_max
+carea_max 10
 1
 nhru
 92
@@ -1322,7 +1322,7 @@ nhru
 0.236427
 0.199483
 ####
-cecn_coef
+cecn_coef 10
 2
 nhru
 nmonths
@@ -2433,7 +2433,7 @@ nmonths
 5.0
 5.0
 ####
-cov_type
+cov_type 10
 1
 nhru
 92
@@ -2531,7 +2531,7 @@ nhru
 3
 3
 ####
-covden_sum
+covden_sum 10
 1
 nhru
 92
@@ -2629,7 +2629,7 @@ nhru
 0.543892
 0.518731
 ####
-covden_win
+covden_win 10
 1
 nhru
 92
@@ -2727,7 +2727,7 @@ nhru
 0.31858
 0.286763
 ####
-dday_intcp
+dday_intcp 10
 2
 nhru
 nmonths
@@ -3838,7 +3838,7 @@ nmonths
 -11.0
 -11.0
 ####
-dday_slope
+dday_slope 10
 2
 nhru
 nmonths
@@ -4949,21 +4949,21 @@ nmonths
 0.371246
 0.371761
 ####
-den_init
+den_init 10
 1
 one
 1
 2
 0.1
 ####
-den_max
+den_max 10
 1
 one
 1
 2
 0.6
 ####
-dprst_depth_avg
+dprst_depth_avg 10
 1
 nhru
 92
@@ -5061,7 +5061,7 @@ nhru
 12.6392
 24.3688
 ####
-dprst_et_coef
+dprst_et_coef 10
 1
 nhru
 92
@@ -5159,7 +5159,7 @@ nhru
 0.76
 0.7619
 ####
-dprst_flow_coef
+dprst_flow_coef 10
 1
 nhru
 92
@@ -5257,7 +5257,7 @@ nhru
 0.0072
 0.0638
 ####
-dprst_frac
+dprst_frac 10
 1
 nhru
 92
@@ -5355,7 +5355,7 @@ nhru
 0.000253
 0.007127
 ####
-dprst_frac_init
+dprst_frac_init 10
 1
 nhru
 92
@@ -5453,7 +5453,7 @@ nhru
 0.5
 0.5
 ####
-dprst_frac_open
+dprst_frac_open 10
 1
 nhru
 92
@@ -5551,105 +5551,7 @@ nhru
 1.0
 1.0
 ####
-dprst_seep_rate_clos
-1
-nhru
-92
-2
-0.02
-0.0091
-0.02
-0.0112
-0.02
-0.0645
-0.02
-0.0059
-0.0623
-0.02
-0.02
-0.02
-0.02
-0.02
-0.02
-0.02
-0.0093
-0.02
-0.02
-0.0315
-0.02
-0.02
-0.02
-0.02
-0.02
-0.02
-0.02
-0.02
-0.02
-0.02
-0.1808
-0.02
-0.16
-0.02
-0.02
-0.0198
-0.02
-0.02
-0.02
-0.02
-0.186
-0.1748
-0.02
-0.02
-0.02
-0.02
-0.02
-0.0207
-0.1882
-0.194
-0.02
-0.0093
-0.02
-0.02
-0.02
-0.02
-0.036
-0.0773
-0.1983
-0.02
-0.0447
-0.02
-0.02
-0.0044
-0.0173
-0.0144
-0.02
-0.02
-0.0351
-0.02
-0.02
-0.1911
-0.02
-0.0477
-0.0088
-0.0605
-0.02
-0.02
-0.02
-0.02
-0.02
-0.02
-0.02
-0.0127
-0.02
-0.02
-0.02
-0.02
-0.1845
-0.02
-0.0445
-0.0167
-####
-dprst_seep_rate_open
+dprst_seep_rate_clos 10
 1
 nhru
 92
@@ -5747,14 +5649,112 @@ nhru
 0.0445
 0.0167
 ####
-elev_units
+dprst_seep_rate_open 10
+1
+nhru
+92
+2
+0.02
+0.0091
+0.02
+0.0112
+0.02
+0.0645
+0.02
+0.0059
+0.0623
+0.02
+0.02
+0.02
+0.02
+0.02
+0.02
+0.02
+0.0093
+0.02
+0.02
+0.0315
+0.02
+0.02
+0.02
+0.02
+0.02
+0.02
+0.02
+0.02
+0.02
+0.02
+0.1808
+0.02
+0.16
+0.02
+0.02
+0.0198
+0.02
+0.02
+0.02
+0.02
+0.186
+0.1748
+0.02
+0.02
+0.02
+0.02
+0.02
+0.0207
+0.1882
+0.194
+0.02
+0.0093
+0.02
+0.02
+0.02
+0.02
+0.036
+0.0773
+0.1983
+0.02
+0.0447
+0.02
+0.02
+0.0044
+0.0173
+0.0144
+0.02
+0.02
+0.0351
+0.02
+0.02
+0.1911
+0.02
+0.0477
+0.0088
+0.0605
+0.02
+0.02
+0.02
+0.02
+0.02
+0.02
+0.02
+0.0127
+0.02
+0.02
+0.02
+0.02
+0.1845
+0.02
+0.0445
+0.0167
+####
+elev_units 10
 1
 one
 1
 1
 1
 ####
-emis_noppt
+emis_noppt 10
 1
 nhru
 92
@@ -5852,7 +5852,7 @@ nhru
 0.757
 0.757
 ####
-epan_coef
+epan_coef 10
 2
 nhru
 nmonths
@@ -6963,7 +6963,7 @@ nmonths
 1.0
 1.0
 ####
-fastcoef_lin
+fastcoef_lin 10
 1
 nhru
 92
@@ -7061,7 +7061,7 @@ nhru
 0.01
 0.010003
 ####
-fastcoef_sq
+fastcoef_sq 10
 1
 nhru
 92
@@ -7159,7 +7159,7 @@ nhru
 0.8
 0.8
 ####
-freeh2o_cap
+freeh2o_cap 10
 1
 nhru
 92
@@ -7257,7 +7257,7 @@ nhru
 0.05
 0.05
 ####
-gwflow_coef
+gwflow_coef 10
 1
 ngw
 92
@@ -7355,7 +7355,7 @@ ngw
 0.01771
 0.0175
 ####
-gwsink_coef
+gwsink_coef 10
 1
 ngw
 92
@@ -7453,7 +7453,7 @@ ngw
 0.0
 0.0
 ####
-gwstor_init
+gwstor_init 10
 1
 ngw
 92
@@ -7551,7 +7551,7 @@ ngw
 2.0
 2.0
 ####
-gwstor_min
+gwstor_min 10
 1
 ngw
 92
@@ -7649,7 +7649,7 @@ ngw
 0.0
 0.0
 ####
-hru_area
+hru_area 10
 1
 nhru
 92
@@ -7747,7 +7747,7 @@ nhru
 22871.702296
 24242.159294
 ####
-hru_aspect
+hru_aspect 10
 1
 nhru
 92
@@ -7845,7 +7845,7 @@ nhru
 73.904094
 211.102627
 ####
-hru_deplcrv
+hru_deplcrv 10
 1
 nhru
 92
@@ -7943,7 +7943,7 @@ nhru
 4
 4
 ####
-hru_elev
+hru_elev 10
 1
 nhru
 92
@@ -8041,7 +8041,7 @@ nhru
 2566.0
 2612.0
 ####
-hru_lat
+hru_lat 10
 1
 nhru
 92
@@ -8139,7 +8139,7 @@ nhru
 40.788052
 40.814924
 ####
-hru_lon
+hru_lon 10
 1
 nhru
 92
@@ -8237,7 +8237,7 @@ nhru
 -107.0026
 -106.9248
 ####
-hru_percent_imperv
+hru_percent_imperv 10
 1
 nhru
 92
@@ -8335,7 +8335,7 @@ nhru
 3.9e-05
 3.7e-05
 ####
-hru_segment
+hru_segment 10
 1
 nhru
 92
@@ -8433,7 +8433,7 @@ nhru
 12
 12
 ####
-hru_segment_nhm
+hru_segment_nhm 10
 1
 nhru
 92
@@ -8531,7 +8531,7 @@ nhru
 43046
 43046
 ####
-hru_slope
+hru_slope 10
 1
 nhru
 92
@@ -8629,7 +8629,7 @@ nhru
 0.206157
 0.239869
 ####
-hru_type
+hru_type 10
 1
 nhru
 92
@@ -8727,7 +8727,7 @@ nhru
 1
 1
 ####
-imperv_stor_max
+imperv_stor_max 10
 1
 nhru
 92
@@ -8825,7 +8825,7 @@ nhru
 0.05
 0.05
 ####
-jh_coef
+jh_coef 10
 2
 nhru
 nmonths
@@ -9936,7 +9936,7 @@ nmonths
 0.001699
 0.001815
 ####
-jh_coef_hru
+jh_coef_hru 10
 1
 nhru
 92
@@ -10034,7 +10034,7 @@ nhru
 -29.2
 -29.92
 ####
-mann_n
+mann_n 10
 1
 nsegment
 46
@@ -10086,7 +10086,7 @@ nsegment
 0.054821
 0.040441
 ####
-melt_force
+melt_force 10
 1
 nhru
 92
@@ -10184,7 +10184,7 @@ nhru
 140
 140
 ####
-melt_look
+melt_look 10
 1
 nhru
 92
@@ -10282,7 +10282,7 @@ nhru
 90
 90
 ####
-nhm_id
+nhm_id 10
 1
 nhru
 92
@@ -10380,7 +10380,7 @@ nhru
 86768
 86770
 ####
-nhm_seg
+nhm_seg 10
 1
 nsegment
 46
@@ -10432,7 +10432,7 @@ nsegment
 43090
 43091
 ####
-obsin_segment
+obsin_segment 10
 1
 nsegment
 46
@@ -10484,7 +10484,7 @@ nsegment
 0
 0
 ####
-op_flow_thres
+op_flow_thres 10
 1
 nhru
 92
@@ -10582,14 +10582,14 @@ nhru
 0.914
 0.8107
 ####
-outlet_sta
+outlet_sta 10
 1
 one
 1
 1
 1
 ####
-poi_gage_id
+poi_gage_id 10
 1
 npoigages
 11
@@ -10606,7 +10606,7 @@ npoigages
 09238900
 09237500
 ####
-poi_gage_segment
+poi_gage_segment 10
 1
 npoigages
 11
@@ -10623,7 +10623,7 @@ npoigages
 39
 40
 ####
-poi_type
+poi_type 10
 1
 npoigages
 11
@@ -10640,7 +10640,7 @@ npoigages
 1
 1
 ####
-potet_sublim
+potet_sublim 10
 1
 nhru
 92
@@ -10738,7 +10738,7 @@ nhru
 0.5
 0.5
 ####
-ppt_rad_adj
+ppt_rad_adj 10
 2
 nhru
 nmonths
@@ -11849,14 +11849,14 @@ nmonths
 0.02
 0.02
 ####
-precip_units
+precip_units 10
 1
 one
 1
 1
 0
 ####
-pref_flow_den
+pref_flow_den 10
 1
 nhru
 92
@@ -11954,21 +11954,21 @@ nhru
 0.0
 0.0
 ####
-print_freq
+print_freq 10
 1
 one
 1
 1
 0
 ####
-print_type
+print_type 10
 1
 one
 1
 1
 0
 ####
-rad_trncf
+rad_trncf 10
 1
 nhru
 92
@@ -12066,7 +12066,7 @@ nhru
 0.297115
 0.326035
 ####
-radadj_intcp
+radadj_intcp 10
 2
 nhru
 nmonths
@@ -13177,7 +13177,7 @@ nmonths
 1.0
 1.0
 ####
-radadj_slope
+radadj_slope 10
 2
 nhru
 nmonths
@@ -14288,7 +14288,7 @@ nmonths
 0.02
 0.02
 ####
-radj_sppt
+radj_sppt 10
 1
 nhru
 92
@@ -14386,7 +14386,7 @@ nhru
 0.44
 0.44
 ####
-radj_wppt
+radj_wppt 10
 1
 nhru
 92
@@ -14484,7 +14484,7 @@ nhru
 0.5
 0.5
 ####
-radmax
+radmax 10
 2
 nhru
 nmonths
@@ -15595,7 +15595,7 @@ nmonths
 0.8
 0.8
 ####
-rain_cbh_adj
+rain_cbh_adj 10
 2
 nhru
 nmonths
@@ -16706,14 +16706,14 @@ nmonths
 1.0
 1.0
 ####
-runoff_units
+runoff_units 10
 1
 one
 1
 1
 0
 ####
-sat_threshold
+sat_threshold 10
 1
 nhru
 92
@@ -16811,7 +16811,7 @@ nhru
 999.0
 999.0
 ####
-seg_cum_area
+seg_cum_area 10
 1
 nsegment
 46
@@ -16863,7 +16863,7 @@ nsegment
 1774.653037
 88494.892727
 ####
-seg_depth
+seg_depth 10
 1
 nsegment
 46
@@ -16915,7 +16915,7 @@ nsegment
 0.408482
 0.928349
 ####
-seg_length
+seg_length 10
 1
 nsegment
 46
@@ -16967,7 +16967,7 @@ nsegment
 1193.002468
 2216.22848
 ####
-seg_slope
+seg_slope 10
 1
 nsegment
 46
@@ -17019,7 +17019,7 @@ nsegment
 0.035457
 0.006542
 ####
-seg_width
+seg_width 10
 1
 nsegment
 46
@@ -17071,7 +17071,7 @@ nsegment
 4.769892
 18.020308
 ####
-segment_flow_init
+segment_flow_init 10
 1
 nsegment
 46
@@ -17123,7 +17123,7 @@ nsegment
 0.0
 0.0
 ####
-segment_type
+segment_type 10
 1
 nsegment
 46
@@ -17175,14 +17175,14 @@ nsegment
 0
 0
 ####
-settle_const
+settle_const 10
 1
 one
 1
 2
 0.1
 ####
-slowcoef_lin
+slowcoef_lin 10
 1
 nhru
 92
@@ -17280,7 +17280,7 @@ nhru
 0.005
 0.005002
 ####
-slowcoef_sq
+slowcoef_sq 10
 1
 nhru
 92
@@ -17378,7 +17378,7 @@ nhru
 0.1
 0.1
 ####
-smidx_coef
+smidx_coef 10
 1
 nhru
 92
@@ -17476,7 +17476,7 @@ nhru
 0.054116
 0.030127
 ####
-smidx_exp
+smidx_exp 10
 1
 nhru
 92
@@ -17574,7 +17574,7 @@ nhru
 0.170983
 0.232069
 ####
-snarea_curve
+snarea_curve 10
 1
 ndeplval
 44
@@ -17624,7 +17624,7 @@ ndeplval
 1.0
 1.0
 ####
-snarea_thresh
+snarea_thresh 10
 1
 nhru
 92
@@ -17722,7 +17722,7 @@ nhru
 17.562104
 20.384998
 ####
-snow_cbh_adj
+snow_cbh_adj 10
 2
 nhru
 nmonths
@@ -18833,7 +18833,7 @@ nmonths
 1.0
 1.0
 ####
-snow_intcp
+snow_intcp 10
 1
 nhru
 92
@@ -18931,7 +18931,7 @@ nhru
 0.060634
 0.053532
 ####
-snowinfil_max
+snowinfil_max 10
 1
 nhru
 92
@@ -19029,7 +19029,7 @@ nhru
 2.0
 2.0
 ####
-snowpack_init
+snowpack_init 10
 1
 nhru
 92
@@ -19127,7 +19127,7 @@ nhru
 0.0
 0.0
 ####
-soil2gw_max
+soil2gw_max 10
 1
 nhru
 92
@@ -19225,7 +19225,7 @@ nhru
 0.1
 0.1
 ####
-soil_moist_init_frac
+soil_moist_init_frac 10
 1
 nhru
 92
@@ -19323,7 +19323,7 @@ nhru
 0.0
 0.0
 ####
-soil_moist_max
+soil_moist_max 10
 1
 nhru
 92
@@ -19421,7 +19421,7 @@ nhru
 2.926737
 2.750023
 ####
-soil_rechr_init_frac
+soil_rechr_init_frac 10
 1
 nhru
 92
@@ -19519,7 +19519,7 @@ nhru
 0.0
 0.0
 ####
-soil_rechr_max_frac
+soil_rechr_max_frac 10
 1
 nhru
 92
@@ -19617,7 +19617,7 @@ nhru
 0.542184
 0.52386
 ####
-soil_type
+soil_type 10
 1
 nhru
 92
@@ -19715,7 +19715,7 @@ nhru
 1
 1
 ####
-srain_intcp
+srain_intcp 10
 1
 nhru
 92
@@ -19813,7 +19813,7 @@ nhru
 0.044992
 0.045689
 ####
-sro_to_dprst_imperv
+sro_to_dprst_imperv 10
 1
 nhru
 92
@@ -19911,7 +19911,7 @@ nhru
 0.0
 0.0
 ####
-sro_to_dprst_perv
+sro_to_dprst_perv 10
 1
 nhru
 92
@@ -20009,7 +20009,7 @@ nhru
 0.006722
 0.108795
 ####
-ssr2gw_exp
+ssr2gw_exp 10
 1
 nssr
 92
@@ -20107,7 +20107,7 @@ nssr
 1.2
 1.2
 ####
-ssr2gw_rate
+ssr2gw_rate 10
 1
 nssr
 92
@@ -20205,7 +20205,7 @@ nssr
 0.300052
 0.300482
 ####
-ssstor_init_frac
+ssstor_init_frac 10
 1
 nssr
 92
@@ -20303,14 +20303,14 @@ nssr
 0.0
 0.0
 ####
-temp_units
+temp_units 10
 1
 one
 1
 1
 0
 ####
-tmax_allrain_offset
+tmax_allrain_offset 10
 2
 nhru
 nmonths
@@ -21421,7 +21421,7 @@ nmonths
 9.440566
 9.446601
 ####
-tmax_allsnow
+tmax_allsnow 10
 2
 nhru
 nmonths
@@ -22532,7 +22532,7 @@ nmonths
 28.553434
 28.533807
 ####
-tmax_cbh_adj
+tmax_cbh_adj 10
 2
 nhru
 nmonths
@@ -23643,7 +23643,7 @@ nmonths
 0.0
 0.0
 ####
-tmax_index
+tmax_index 10
 2
 nhru
 nmonths
@@ -24754,7 +24754,7 @@ nmonths
 50.0
 50.0
 ####
-tmin_cbh_adj
+tmin_cbh_adj 10
 2
 nhru
 nmonths
@@ -25865,7 +25865,7 @@ nmonths
 0.0
 0.0
 ####
-tosegment
+tosegment 10
 1
 nsegment
 46
@@ -25917,7 +25917,7 @@ nsegment
 46
 34
 ####
-tosegment_nhm
+tosegment_nhm 10
 1
 nsegment
 46
@@ -25969,7 +25969,7 @@ nsegment
 43091
 43079
 ####
-transp_beg
+transp_beg 10
 1
 nhru
 92
@@ -26067,7 +26067,7 @@ nhru
 1
 1
 ####
-transp_end
+transp_end 10
 1
 nhru
 92
@@ -26165,7 +26165,7 @@ nhru
 13
 13
 ####
-transp_tmax
+transp_tmax 10
 1
 nhru
 92
@@ -26263,7 +26263,7 @@ nhru
 1.0
 1.0
 ####
-tstorm_mo
+tstorm_mo 10
 2
 nhru
 nmonths
@@ -27374,7 +27374,7 @@ nmonths
 0
 0
 ####
-va_clos_exp
+va_clos_exp 10
 1
 nhru
 92
@@ -27472,7 +27472,7 @@ nhru
 0.001
 0.001
 ####
-va_open_exp
+va_open_exp 10
 1
 nhru
 92
@@ -27570,7 +27570,7 @@ nhru
 0.001
 0.001
 ####
-wrain_intcp
+wrain_intcp 10
 1
 nhru
 92
@@ -27668,7 +27668,7 @@ nhru
 0.035748
 0.033833
 ####
-x_coef
+x_coef 10
 1
 nsegment
 46

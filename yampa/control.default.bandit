@@ -33,7 +33,7 @@ executable_model
 model_mode
 1
 4
-PRMS5
+WRITE_CLIMATE
 ####
 param_file
 1
