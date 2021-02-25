@@ -43,6 +43,8 @@ ctl.set_values(name='tmin_day', values=['./input/tmin.cbh'])
 ctl.set_values(name='nhruOutVar_Names', values=['unused_potet', 'ag_irrigation_add', 'hru_actet', 'potet'])
 ctl.set_values(name='PET_cbh_file', values=['./input/potet.day'])
 ctl.set_values(name='AET_cbh_file', values=['./input/actet.day'])
+ctl.set_values(name='AET_module', values=['climate_hru'])
+ctl.set_values(name='PET_ag_module', values=['climate_hru'])
 
 base_filename = './input/yampa.param'
 for params in par.record_names:

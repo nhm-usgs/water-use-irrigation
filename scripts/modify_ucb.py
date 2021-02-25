@@ -41,7 +41,14 @@ ctl.set_values(name='nsegmentOutBaseFileName', values=['./output/nsegment_summar
 ctl.set_values(name='tmin_day', values=['./input/tmin.cbh'])
 # other small changes: 
 ctl.set_values(name='nhruOutVar_Names', values=['unused_potet', 'ag_irrigation_add', 'hru_actet', 'potet'])
-
+# WRITE_CLIMATE version: 
+# ctl.set_values(name='PET_cbh_file', values=['./input/potet.day'])
+# ctl.set_values(name='AET_cbh_file', values=['./input/actet.day'])
+# OpenET version: 
+ctl.set_values(name='PET_cbh_file', values=['./input/potet_openet.day'])
+ctl.set_values(name='AET_cbh_file', values=['./input/actet_openet.day'])
+ctl.set_values(name='AET_module', values=['climate_hru'])
+ctl.set_values(name='PET_ag_module', values=['climate_hru'])
 
 base_filename = './input/ucb.param'
 for params in par.record_names:
