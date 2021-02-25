@@ -1,7 +1,6 @@
 import gsflow 
 import numpy as np
 
-
 model_dir = '../yampa/'
 control_file = model_dir+'control.default.bandit'
 gs = gsflow.GsflowModel.load_from_file(control_file=control_file)
@@ -13,38 +12,53 @@ example_control_file = '../../test_model/prms/projects/yampa/yampa.control'
 ex_gs = gsflow.GsflowModel.load_from_file(control_file=example_control_file)
 ex_ctl = ex_gs.control 
 
+print('removing extra control parameters...')
+ex_str = [item.name for item in ex_ctl.records_list]
 for ctl_vars in ctl.records_list:
-    if ctl_vars not in ex_ctl.records_list: 
+    if ctl_vars.name not in ex_str: 
         ctl.remove_record(name=ctl_vars.name)
+print('adding new control parameters...')
+ctl_str = [item.name for item in ctl.records_list]
 for ex_vars in ex_ctl.records_list:
-    if ex_vars not in ctl.records_list: 
+    if ex_vars.name not in ctl_str:
         ctl.add_record(name=ex_vars.name, values=ex_vars.values) 
 
 #activate ag
-ctl.add_record(name='agriculture_soil_flag', values=[1])
-ctl.set_values(name='model_mode', values=['PRMS_AG'])
-ctl.set_values(name='executable_model', values=['../../bin/gsflow.exe'])
-ctl.add_record(name='dyn_ag_frac_flag', values=[1])
-ctl.add_record(name='ag_frac_dynamic', values=['./input/dyn_ag_frac.param'])
-# change to Steve's IO structure 
-ctl.set_values(name='data_file', values=['./input/sf_data'])
-ctl.set_values(name='model_output_file', values=['./output/model.out'])
-ctl.set_values(name='var_save_file', values=['./output/prms_ic.out'])
-ctl.set_values(name='csv_output_file', values=['./output/prms_summary'])
-ctl.set_values(name='nhruOutBaseFileName', values=['./output/nhru_summary_'])
-ctl.set_values(name='stat_var_file', values=['./output/statvar.out'])
-ctl.set_values(name='dprst_transfer_file', values=['./input/dprst.transfer'])
-ctl.set_values(name='ext_transfer_file', values=['./input/ext.transfer'])
-ctl.set_values(name='gwr_transfer_file', values=['./input/gwr.transfer'])
-ctl.set_values(name='segment_transfer_file', values=['./input/seg.transfer'])
-ctl.set_values(name='nsegmentOutBaseFileName', values=['./output/nsegment_summary_'])
-ctl.set_values(name='tmin_day', values=['./input/tmin.cbh'])
-# other small changes: 
-ctl.set_values(name='nhruOutVar_Names', values=['unused_potet', 'ag_irrigation_add', 'hru_actet', 'potet'])
+new_record_list = [('agriculture_soil_flag', 1), 
+        ('model_mode', 'PRMS_AG'),
+        ('executable_model', '../../bin/gsflow.exe'), 
+        ('dyn_ag_frac_flag', 1), 
+        ('ag_frac_dynamic', './input/dyn_ag_frac.param'),
+        ('data_file', './input/sf_data'), 
+        ('model_output_file', './output/model.out'),
+        ('var_save_file', './output/prms_ic.out'),
+        ('csv_output_file', './output/prms_summary'),
+        ('nhruOutBaseFileName', './output/nhru_summary_'),
+        ('stat_var_file', './output/statvar.out'),
+        ('dprst_transfer_file', './input/dprst.transfer'),
+        ('ext_transfer_file', './input/ext.transfer'),
+        ('gwr_transfer_file', './input/gwr.transfer'),
+        ('segment_transfer_file', './input/seg.transfer'),
+        ('nsegmentOutBaseFileName', './output/nsegment_summary_'),
+        ('precip_day', './input/prcp.cbh'),
+        ('tmax_day', './input/tmax.cbh'),
+        ('tmin_day', './input/tmin.cbh'),
+        ('PET_cbh_file', './input/potet.day'),
+        ('AET_cbh_file', './input/actet.day'), 
+        ('AET_module', 'climate_hru'),
+        ('PET_ag_module', 'climate_hru')]
 ctl.set_values(name='PET_cbh_file', values=['./input/potet.day'])
 ctl.set_values(name='AET_cbh_file', values=['./input/actet.day'])
-ctl.set_values(name='AET_module', values=['climate_hru'])
-ctl.set_values(name='PET_ag_module', values=['climate_hru'])
+
+print('adding ag control parameters...')
+ctl_str = [item.name for item in ctl.records_list]
+for rec in new_record_list: 
+    rec_name = rec[0]
+    if rec_name in ctl_str: 
+        ctl.set_values(name=rec[0], values=[rec[1]])
+    else: 
+        ctl.add_record(name=rec[0], values=[rec[1]])
+ctl.set_values(name='nhruOutVar_Names', values=['unused_potet', 'ag_irrigation_add', 'hru_actet', 'potet'])
 
 base_filename = './input/yampa.param'
 for params in par.record_names:
