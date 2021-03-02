@@ -46,7 +46,7 @@ def write_datafile():
     et.write('########################################\n')
     start_date = datetime.date(2016, 1, 1)
     end_date = datetime.date(2016, 9, 30)
-    days = (end_date-start_date).days
+    days = (end_date-start_date).days + 1
     date_list = [start_date + datetime.timedelta(days=d) for d in range(days)]
     for row, line in enumerate(infile):
         if (row > 2) and (row < 12878):
@@ -62,8 +62,8 @@ def write_datafile():
     infile_lines = open(ucb_dir+'potet.day', 'r').readlines()
     for day in date_list:  # loop through days of simulation
         dummy, days_in_month = calendar.monthrange(day.year, day.month)
-        eto.write(str(day.year) + ' ' + str(day.month) + ' ' + str(day.day) + ' 0 0 0  ')
-        et.write(str(day.year) + ' ' + str(day.month) + ' ' + str(day.day) + ' 0 0 0  ')
+        eto.write(str(day.year) + ' ' + str(day.month).rjust(2) + ' ' + str(day.day).rjust(2) + ' 0 0 0  ')
+        et.write(str(day.year) + ' ' + str(day.month).rjust(2) + ' ' + str(day.day).rjust(2) + ' 0 0 0  ')
         if day.day == 1:
             eto_array = np.zeros(len(idx_key['model_idx']))
             et_array = np.zeros(len(idx_key['model_idx']))
