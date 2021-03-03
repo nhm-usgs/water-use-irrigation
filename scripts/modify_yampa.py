@@ -2,7 +2,7 @@ import gsflow
 import numpy as np
 
 
-model_dir = '../yampa/'
+model_dir = '/caldera/projects/usgs/water/wbeep/NHM/gf_v11/wu/water-use-irrigation/yampa/'
 control_file = model_dir+'control.default.bandit'
 gs = gsflow.GsflowModel.load_from_file(control_file=control_file)
 ctl = gs.control 
@@ -12,6 +12,7 @@ ag_par = gsflow.prms.PrmsParameters(parameters_list=[])
 example_control_file = '../../test_model/prms/projects/yampa/yampa.control'
 ex_gs = gsflow.GsflowModel.load_from_file(control_file=example_control_file)
 ex_ctl = ex_gs.control 
+
 print('removing extra control parameters...')
 ex_str = [item.name for item in ex_ctl.records_list]
 ctl_str = [item.name for item in ctl.records_list]
@@ -27,7 +28,9 @@ for ex_vars in ex_ctl.records_list:
 #activate ag
 new_record_list = [
         ('dyn_ag_frac_flag', 1), 
-        ('ag_frac_dynamic', './input/dyn_ag_frac.param')]
+        ('ag_frac_dynamic', './input/dyn_ag_frac.param'),
+        ('AET_cbh_file', './input/actet_openet.cbh'),
+        ('PET_cbh_file', './input/potet_openet.cbh')]
 print('adding ag control parameters...')
 ctl_str = [item.name for item in ctl.records_list]
 for rec in new_record_list: 
@@ -36,7 +39,15 @@ for rec in new_record_list:
         ctl.set_values(name=rec[0], values=[rec[1]])
     else: 
         ctl.add_record(name=rec[0], values=[rec[1]])
+print('adding other miscellaneous items...')
 ctl.set_values(name='nhruOutVar_Names', values=['unused_potet', 'ag_irrigation_add', 'hru_actet', 'potet', 'AET_external', 'PET_external'])
+ctl.set_values(name='data_file', values=['./input/sf_data'])
+ctl.set_values(name='model_output_file', values=['./output/model.out'])
+ctl.set_values(name='var_init_file', values=['./prms_ic.in'])
+ctl.set_values(name='var_save_file', values=['./output/prms_ic.out'])
+ctl.set_values(name='csv_output_file', values=['./output/prms_summary.csv'])
+ctl.set_values(name='stat_var_file', values=['./output/statvar.out'])
+ctl.set_values(name='ani_output_file', values=['./animation.out'])
 
 base_filename = './input/yampa.param'
 for params in par.record_names:

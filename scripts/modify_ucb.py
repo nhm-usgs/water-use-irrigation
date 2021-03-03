@@ -39,7 +39,15 @@ for rec in new_record_list:
         ctl.set_values(name=rec[0], values=[rec[1]])
     else: 
         ctl.add_record(name=rec[0], values=[rec[1]])
+print('adding other miscellaneous items...')
 ctl.set_values(name='nhruOutVar_Names', values=['unused_potet', 'ag_irrigation_add', 'hru_actet', 'potet', 'AET_external', 'PET_external'])
+ctl.set_values(name='data_file', values=['./input/sf_data'])
+ctl.set_values(name='model_output_file', values=['./output/model.out'])
+ctl.set_values(name='var_init_file', values=['./prms_ic.in'])
+ctl.set_values(name='var_save_file', values=['./output/prms_ic.out'])
+ctl.set_values(name='csv_output_file', values=['./output/prms_summary.csv'])
+ctl.set_values(name='stat_var_file', values=['./output/statvar.out'])
+ctl.set_values(name='ani_output_file', values=['./animation.out'])
 
 base_filename = './input/ucb.param'
 for params in par.record_names:
