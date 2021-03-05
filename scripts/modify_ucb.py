@@ -55,13 +55,17 @@ for params in par.record_names:
     new_record.file_name = model_dir+base_filename
 
 # parameters, which are not dynamic 
-ag_list = ['ag_soil_moist_max', 'ag_soil_moist_init_frac', 'ag_soil_rechr_max_frac', 'ag_soil_rechr_init_frac', 'sro_to_dprst_ag']
-orig_list = ['soil_moist_max', 'soil_moist_init_frac', 'soil_rechr_max_frac', 'soil_rechr_init_frac', 'sro_to_dprst_perv']
+ag_list = ['ag_soil_moist_max', 'ag_soil_moist_init_frac', 'ag_soil_rechr_max_frac', 'ag_soil_rechr_init_frac', 'sro_to_dprst_ag', 'pref_flow_infil_frac']
+orig_list = ['soil_moist_max', 'soil_moist_init_frac', 'soil_rechr_max_frac', 'soil_rechr_init_frac', 'sro_to_dprst_perv', 'pref_flow_den']
 ag_filename = './input/ag.ucb.param'
 for ind, ag_var in enumerate(ag_list): 
     if ag_var not in par.record_names:
         par_orig = par.get_record(orig_list[ind])
         ag_par.add_record(name=ag_var, values=par_orig._values, dimensions=par_orig._dimensions, file_name=model_dir+ag_filename)
+ag_par.add_record(name='ppt_zero_thresh', values=[0.0], dimensions=[['one', 1]], datatype=2, file_name=model_dir+ag_filename)
+ag_par.add_record(name='max_soilzone_ag_iter', values=[500], dimensions=[['one', 1]], datatype=1, file_name=model_dir+ag_filename)
+ag_par.add_record(name='soilzone_aet_converge', values=[0.005], dimensions=[['one', 1]], datatype=2, file_name=model_dir+ag_filename)
+
 
 par_control_rec = ctl.get_record(name='param_file')
 ctl.set_values(name='param_file', values=[base_filename, ag_filename]) 
