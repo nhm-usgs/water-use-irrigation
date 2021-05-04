@@ -13,28 +13,35 @@ def fortranformat(n):  # thank you stack exchange
 
 def build_file_dictionary():
     file_dict_ = {}
-    for yr in range(2016, 2020):
-        eto = pd.read_csv('/caldera/projects/usgs/water/wbeep/NHM/gf_v11/wu/USGS_HRU_LANDID_2016-2019/USGS_' + str(yr) + '_ensemble_eto.csv', header=0)
-        et = pd.read_csv('/caldera/projects/usgs/water/wbeep/NHM/gf_v11/wu/USGS_HRU_LANDID_2016-2019/USGS_' + str(yr) + '_ensemble_et.csv', header=0)
-        dt_format = '%Y-%m-%d'
-        eto_date_list = np.array([datetime.datetime.strptime(eto['time'].iloc[i], dt_format) for i, dummy in eto.iterrows()])
-        eto.set_index(eto_date_list, inplace=True)
-        et_date_list = np.array([datetime.datetime.strptime(et['time'].iloc[j], dt_format) for j, dummy in et.iterrows()])
-        et.set_index(et_date_list, inplace=True)
-        file_dict_[yr] = (eto, et)
+    # for yr in range(2016, 2020):
+    #     eto = pd.read_csv('./USGS_HRU_LANDID_2016-2019/USGS_' + str(yr) + '_ensemble_eto.csv', header=0)
+    #     et = pd.read_csv('./USGS_HRU_LANDID_2016-2019/USGS_' + str(yr) + '_ensemble_et.csv', header=0)
+    #     dt_format = '%Y-%m-%d'
+    #     eto_date_list = np.array([datetime.datetime.strptime(eto['time'].iloc[i], dt_format) for i, dummy in eto.iterrows()])
+    #     eto.set_index(eto_date_list, inplace=True)
+    #     et_date_list = np.array([datetime.datetime.strptime(et['time'].iloc[j], dt_format) for j, dummy in et.iterrows()])
+    #     et.set_index(et_date_list, inplace=True)
+    #     file_dict_[yr] = (eto, et)
+    eto = pd.read_csv('2016_eto_USGS.csv', header=0)
+    et = pd.read_csv('2016_eta_USGS.csv', header=0)
+    dt_format = '%Y-%m-%d'
+    eto_date_list = np.array([datetime.datetime.strptime(eto['time'].iloc[i], dt_format) for i, dummy in eto.iterrows()])
+    eto.set_index(eto_date_list, inplace=True)
+    et_date_list = np.array([datetime.datetime.strptime(et['time'].iloc[j], dt_format) for j, dummy in et.iterrows()])
+    et.set_index(et_date_list, inplace=True)
+    file_dict_[2016] = (eto, et)
     return file_dict_
 
 
 def write_datafile():
-    ucb_dir = '/caldera/projects/usgs/water/wbeep/NHM/gf_v11/wu/test_model/prms/projects/ucb/input/'
     # potet file for pre-2016:
-    infile = open(ucb_dir+'potet.day', 'r')
+    infile = open('potet.day', 'r')
     # get key to convert nhm_id to model_idx:
     idx_key = pd.read_csv('idx_to_nhru.csv', header=0)
     idx_key.set_index('model_idx', drop=False, inplace=True)
     # files
-    eto = open(ucb_dir+'potet_openet.cbh', 'w')
-    et = open(ucb_dir+'actet_openet.cbh', 'w')
+    eto = open('potet_openet.cbh', 'w')
+    et = open('actet_openet.cbh', 'w')
     # first line
     eto.write('OpenET ETO passed to NHM-PRMS as PET\n')
     et.write('OpenET ET passed to NHM-PRMS as AET\n')
@@ -59,7 +66,7 @@ def write_datafile():
                     et.write(fl_fort + '  ')
             eto.write(line)
             et.write('\n')
-    infile_lines = open(ucb_dir+'potet.day', 'r').readlines()
+    infile_lines = open('potet.day', 'r').readlines()
     for day in date_list:  # loop through days of simulation
         dummy, days_in_month = calendar.monthrange(day.year, day.month)
         eto.write(str(day.year) + ' ' + str(day.month).rjust(2) + ' ' + str(day.day).rjust(2) + ' 0 0 0  ')
@@ -72,19 +79,20 @@ def write_datafile():
             eto_file = file_dict[day.year][0]
             et_file = file_dict[day.year][1]
             for idx in range(len(idx_key['model_idx'])):  # loop through HRUs
-                nhru = idx_key['nhru_v11'][idx + 1]
+                # nhru = idx_key['nhru_v11'][idx + 1]
+                nhru = idx_key['nhm_id'][idx + 1]
                 data_line = 12878 + (day.day - start_date.day)
                 fill_vals = infile_lines[data_line].split()
                 # pull corresponding data and write it:
                 if nhru in eto_file['nhm_id'].tolist():
                     eto_subset = (eto_file['nhm_id'] == nhru) & (eto_file.index == data_date)
-                    eto_idx = np.mean(eto_file['mean'][eto_subset]) / days_in_month
+                    eto_idx = eto_file['mean'][eto_subset] / days_in_month * 0.0393701
                     eto_array[idx] = eto_idx
                 else:
                     eto_array[idx] = float(fill_vals[6+idx])
                 if nhru in et_file['nhm_id'].tolist():
                     et_subset = (et_file['nhm_id'] == nhru) & (et_file.index == data_date)
-                    et_idx = np.mean(et_file['mean'][et_subset]) / days_in_month
+                    et_idx = et_file['mean'][et_subset] / days_in_month * 0.0393701
                     et_array[idx] = et_idx
                 else:
                     et_array[idx] = 0.9*float(fill_vals[6+idx])
