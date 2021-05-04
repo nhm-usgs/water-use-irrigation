@@ -25,6 +25,8 @@ for ex_vars in ex_ctl.records_list:
     if ex_vars.name not in ctl_str:
         ctl.add_record(name=ex_vars.name, values=ex_vars.values) 
     ctl.set_values(name=ex_vars.name, values=ex_vars.values)
+# make sure time period is set: 
+ctl.set_values(name='end_time', values=[2016, 9, 30, 0, 0, 0])
 #activate ag
 new_record_list = [
         ('dyn_ag_frac_flag', 1), 
@@ -40,7 +42,8 @@ for rec in new_record_list:
     else: 
         ctl.add_record(name=rec[0], values=[rec[1]])
 print('adding other miscellaneous items...')
-ctl.set_values(name='nhruOutVar_Names', values=['unused_potet', 'ag_irrigation_add', 'hru_actet', 'potet', 'AET_external', 'PET_external'])
+ctl.set_values(name='nhruOutVars', values=[15])
+ctl.set_values(name='nhruOutVar_Names', values=['net_ppt', 'snow_evap', 'hru_intcpevap', 'hru_impervevap', 'dprst_evap_hru', 'ag_soil2gvr', 'ag_hortonian', 'ag_actet', 'unused_potet', 'ag_irrigation_add', 'ag_irrigation_add_vol', 'hru_actet', 'potet', 'AET_external', 'PET_external'])
 ctl.set_values(name='data_file', values=['./input/sf_data'])
 ctl.set_values(name='model_output_file', values=['./output/model.out'])
 ctl.set_values(name='var_init_file', values=['./prms_ic.in'])
@@ -63,9 +66,16 @@ for ind, ag_var in enumerate(ag_list):
         par_orig = par.get_record(orig_list[ind])
         ag_par.add_record(name=ag_var, values=par_orig._values, dimensions=par_orig._dimensions, file_name=model_dir+ag_filename)
 ag_par.add_record(name='ppt_zero_thresh', values=[0.0], dimensions=[['one', 1]], datatype=2, file_name=model_dir+ag_filename)
-ag_par.add_record(name='max_soilzone_ag_iter', values=[500], dimensions=[['one', 1]], datatype=1, file_name=model_dir+ag_filename)
+ag_par.add_record(name='max_soilzone_ag_iter', values=[50], dimensions=[['one', 1]], datatype=1, file_name=model_dir+ag_filename)
 ag_par.add_record(name='soilzone_aet_converge', values=[0.005], dimensions=[['one', 1]], datatype=2, file_name=model_dir+ag_filename)
+ag_par.add_record(name='ag_cov_type', values=[1], dimensions=[['one', 1]], datatype=1, file_name=model_dir+ag_filename)
+ag_par.add_record(name='ag_soil_type', values=[2], dimensions=[['one', 1]], datatype=1, file_name=model_dir+ag_filename)
+ag_par.add_record(name='transp_beg', values=[4], dimensions=[['one', 1]], datatype=1, file_name=model_dir+ag_filename)
+ag_par.add_record(name='transp_end', values=[10], dimensions=[['one', 1]], datatype=1, file_name=model_dir+ag_filename)
 
+#initial ag_frac
+ag_frac_list = np.loadtxt('initial_ag_frac.txt').tolist()
+ag_par.add_record(name='ag_frac', values=ag_frac_list, dimensions=[['nhru', 3851]], datatype=2, file_name=model_dir+ag_filename)
 
 par_control_rec = ctl.get_record(name='param_file')
 ctl.set_values(name='param_file', values=[base_filename, ag_filename]) 
