@@ -68,7 +68,7 @@ for num, hru in enumerate(hru_name):
         axes[num].set_ylabel('Inches', ha='right', va='center', ma='left', rotation=0)
 fig.legend(handles, labels)
 fig.tight_layout()
-fig.suptitle('2016 Cumulative Effective Precipitation\n(ETa - Applied Irrigation + RO + Percolation):\nUpper Colorado River Basin', fontsize=20)
+fig.suptitle('2016 Cumulative Effective Precipitation\n= ETa - (Applied Irrigation - Runoff - Percolation):\nUpper Colorado River Basin', fontsize=20)
 fig.subplots_adjust(top=0.8)
 fig.savefig('net_ppt.png', dpi=500)
 

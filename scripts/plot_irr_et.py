@@ -70,7 +70,7 @@ for num, hru in enumerate(hru_name):
     axes[num].set_xticklabels(axes_dates, rotation=-30, ha='left')
     axes[num].set_title(hru + desc[num] + '\nIrrigated Fraction: ' + str(np.round(ag_frac, 2)))
     if (num == 0) or (num == 3):
-        axes[num].set_ylabel('Inches\nper\nDay', ha='right', va='center', ma='left', rotation=0)
+        axes[num].set_ylabel('Inches', ha='right', va='center', ma='left', rotation=0)
 fig.legend(handles, labels)
 fig.tight_layout()
 fig.suptitle('WY2016 Cumulative ET and Irrigation:\nUpper Colorado River Basin', fontsize=20)
