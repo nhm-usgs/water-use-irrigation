@@ -57,7 +57,7 @@ for num, hru in enumerate(hru_name):
     perc_data = perc[idx_from_hru][(start_date <= perc_date_list) & (perc_date_list <= end_date)]
     ppt_data = ppt[idx_from_hru][(start_date <= ppt_date_list) & (ppt_date_list <= end_date)]
     axes[num].plot(plot_date_list, np.nancumsum(ppt_data), label='Precipitation', color='tab:pink')
-    axes[num].plot(plot_date_list, np.nancumsum(actet_data - (irr_data - runoff_data - perc_data)), label='"Net" Precipitation', color='tab:gray')
+    axes[num].plot(plot_date_list, np.nancumsum(actet_data - (irr_data - runoff_data - perc_data)), label='Effective Precipitation', color='tab:gray')
     if num == 0:
         handles, labels = axes[num].get_legend_handles_labels()
     axes_dates = [calendar.month_name[i][0:3] for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]]
@@ -68,7 +68,7 @@ for num, hru in enumerate(hru_name):
         axes[num].set_ylabel('Inches', ha='right', va='center', ma='left', rotation=0)
 fig.legend(handles, labels)
 fig.tight_layout()
-fig.suptitle('2016 Cumulative Net Precipitation\n(ETa - Applied Irrigation + RO + Percolation):\nUpper Colorado River Basin', fontsize=20)
+fig.suptitle('2016 Cumulative Effective Precipitation\n(ETa - Applied Irrigation + RO + Percolation):\nUpper Colorado River Basin', fontsize=20)
 fig.subplots_adjust(top=0.8)
 fig.savefig('net_ppt.png', dpi=500)
 

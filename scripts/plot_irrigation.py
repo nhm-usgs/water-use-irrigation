@@ -54,10 +54,10 @@ for num, hru in enumerate(hru_name):
     irr_vol_data = irr_vol[idx_from_hru][(start_date <= irr_vol_date_list) & (irr_vol_date_list <= end_date)]
     runoff_data = runoff[idx_from_hru][(start_date <= runoff_date_list) & (runoff_date_list <= end_date)]
     perc_data = perc[idx_from_hru][(start_date <= perc_date_list) & (perc_date_list <= end_date)]
-    axes[num].plot(plot_date_list, irr_data, label='Applied Irrigation', color='tab:purple')
-    #axes[num].plot(plot_date_list, irr_vol_data / irr_area, label='Applied Irrigation\n(model output in acre inches\ndivided by irrigated area)', color='tab:pink')
-    axes[num].plot(plot_date_list, runoff_data, label='Runoff', color='tab:cyan')
-    axes[num].plot(plot_date_list, perc_data, label='Percolation', color='tab:brown')
+    axes[num].plot(plot_date_list, np.nancumsum(irr_data), label='Applied Irrigation', color='tab:purple')
+    #axes[num].plot(plot_date_list, np.nancumsum(irr_vol_data / irr_area), label='Applied Irrigation\n(model output in acre inches\ndivided by irrigated area)', color='tab:pink')
+    axes[num].plot(plot_date_list, np.nancumsum(runoff_data), label='Runoff', color='tab:cyan')
+    axes[num].plot(plot_date_list, np.nancumsum(perc_data), label='Percolation', color='tab:brown')
     if num == 0:
         handles, labels = axes[num].get_legend_handles_labels()
     axes_dates = [calendar.month_name[i][0:3] for i in [10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9]]
@@ -69,7 +69,7 @@ for num, hru in enumerate(hru_name):
 
 fig.legend(handles, labels)
 fig.tight_layout()
-fig.suptitle('WY2016 Applied Irrigation, Runoff, and Deep Percolation:\nUpper Colorado River Basin', fontsize=20)
+fig.suptitle('WY2016 Cumulative Applied Irrigation, Runoff, and Deep Percolation:\nUpper Colorado River Basin', fontsize=20)
 fig.subplots_adjust(top=0.8)
 fig.savefig('irr_runoff.png', dpi=500)
 
