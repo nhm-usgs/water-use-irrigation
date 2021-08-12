@@ -1,9 +1,9 @@
 import gsflow 
 import numpy as np
 
-
+new_model_dir = '/caldera/projects/usgs/water/wbeep/NHM/gf_v11/wu/UCB_May/'
 model_dir = '/caldera/projects/usgs/water/wbeep/NHM/gf_v11/wu/test_model/prms/projects/ucb/'
-control_file = model_dir+'control.default.bandit'
+control_file = new_model_dir+'control.default.bandit'
 gs = gsflow.GsflowModel.load_from_file(control_file=control_file)
 ctl = gs.control 
 par = gs.prms.parameters
@@ -54,8 +54,9 @@ ctl.set_values(name='ani_output_file', values=['./animation.out'])
 
 base_filename = './input/ucb.param'
 for params in par.record_names:
-    new_record = par.get_record(params)
-    new_record.file_name = model_dir+base_filename
+    if 'poi_gage_id' not in params:
+        new_record = par.get_record(params)
+        new_record.file_name = model_dir+base_filename
 
 # parameters, which are not dynamic 
 ag_list = ['ag_soil_moist_max', 'ag_soil_moist_init_frac', 'ag_soil_rechr_max_frac', 'ag_soil_rechr_init_frac', 'sro_to_dprst_ag', 'pref_flow_infil_frac']
