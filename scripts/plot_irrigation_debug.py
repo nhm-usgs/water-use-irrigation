@@ -68,10 +68,10 @@ for num, hru in enumerate(hru_name):
     ppt_data = ppt[idx_from_hru][(start_date <= ppt_date_list) & (ppt_date_list <= end_date)]
     moist_data = moist[idx_from_hru][(start_date <= moist_date_list) & (moist_date_list <= end_date)]
     ax2 = axes[num].twinx()
-    ax2.plot(plot_date_list, np.nancumsum(irr_data), label='Applied Irrigation', color='tab:purple')
-    ax2.plot(plot_date_list, np.nancumsum(ppt_data), label='Precipitation', color='tab:pink')
-    ax2.plot(plot_date_list, np.nancumsum(runoff_data), label='Runoff', color='tab:cyan')
-    ax2.plot(plot_date_list, np.nancumsum(perc_data), label='Percolation', color='tab:brown')
+    ax2.plot(plot_date_list, np.nancumsum(irr_data), label='ag_irrigation_add', color='tab:purple')
+    ax2.plot(plot_date_list, np.nancumsum(ppt_data), label='net_ppt', color='tab:pink')
+    ax2.plot(plot_date_list, np.nancumsum(runoff_data), label='ag_hortonian', color='tab:cyan')
+    ax2.plot(plot_date_list, np.nancumsum(perc_data), label='ag_soil2gvr', color='tab:brown')
     axes[num].fill_between(x=plot_date_list, y1=moist_data, label='Capillary Storage', alpha=0.3, color='tab:gray')
     if num == 0:
         handles1, labels1 = axes[num].get_legend_handles_labels()
@@ -88,11 +88,12 @@ for num, hru in enumerate(hru_name):
     if (num == 0) or (num == 3):
         axes[num].set_ylabel('Capillary\nStorage\n(Inches)', ha='right', va='center', ma='left', rotation=0)
     axes[num].set_ylim([0, 3.2])
-
+    if (num == 0) or (num == 3):
+        axes[num].set_ylabel('Inches', ha='right', va='center', ma='left', rotation=0)
 
 fig.legend(handles, labels)
 fig.tight_layout()
 fig.suptitle('Growing Season 2016 Cumulative Applied Irrigation,\nPrecipitation, Runoff, and Deep Percolation', fontsize=20)
 fig.subplots_adjust(top=0.8)
-fig.savefig('irr_runoff.png', dpi=500)
+fig.savefig('irr_runoff_debug.png', dpi=500)
 

@@ -6,7 +6,8 @@ import datetime
 import calendar
 import os 
 
-out_dir = '/caldera/projects/usgs/water/wbeep/NHM/gf_v11/wu/test_model/prms/projects/ucb/output/'
+out_dir = '/caldera/projects/usgs/water/wbeep/NHM/gf_v11/wu/test_model/prms/projects/ucb_daily_ag_frac_transp/output/'
+
 hru_list = [84078, 84427, 85751, 83371, 84738, 84965]  # nhru_v11 (not nhm_id)
 hru_name = ['Delta', 'Fruita', 'Vernal', 'Durango', 'Kremmling', 'Kirtland']
 desc = [' (West Central Colorado)', ' (West Central Colorado)', ' (Northeast Utah)', ' (Southwest Colorado)', ' (North Central Colorado)', ' (Northwest New Mexico)']
@@ -18,6 +19,12 @@ hru_areas = pd.read_csv('hru_area.csv', header=0)
 ag_fracs = pd.read_csv('ia_2016_ucb.csv', header=0)
 
 dt_format = '%Y-%m-%d'
+
+# "net precip" (precip that makes it past canopy)
+ppt = pd.read_csv(os.path.join(out_dir, 'nhru_summary_net_ppt.csv'))
+ppt.columns = [str(c) for c in range(len(ppt.columns))]
+ppt_date_list = np.array([datetime.datetime.strptime(ppt['0'].iloc[i], dt_format) for i, dummy in ppt.iterrows()])
+
 # actual ET (from NHM/PRMS)
 actet = pd.read_csv(os.path.join(out_dir, 'nhru_summary_ag_actet.csv'))
 actet.columns = [str(c) for c in range(len(actet.columns))]
@@ -33,7 +40,12 @@ potet = pd.read_csv(os.path.join(out_dir, 'nhru_summary_potet.csv'))
 potet.columns = [str(c) for c in range(len(actet.columns))]
 potet_date_list = np.array([datetime.datetime.strptime(potet['0'].iloc[i], dt_format) for i, dummy in potet.iterrows()])
 
-start_date = datetime.datetime(2015, 10, 1)
+# soil moisture
+moist = pd.read_csv(os.path.join(out_dir, 'nhru_summary_ag_soil_rechr.csv'))  # moist.csv'))
+moist.columns = [str(c) for c in range(len(moist.columns))]
+moist_date_list = np.array([datetime.datetime.strptime(moist['0'].iloc[i], dt_format) for i, dummy in moist.iterrows()])
+
+start_date = datetime.datetime(2016, 4, 1)
 end_date = datetime.datetime(2016, 9, 30)
 days = (end_date - start_date).days + 1
 plot_date_list = [start_date + datetime.timedelta(days=d) for d in range(days)]
@@ -58,22 +70,33 @@ for num, hru in enumerate(hru_name):
     et2_data = et2[idx_from_hru][(start_date <= et2_date_list) & (et2_date_list <= end_date)]
     eto2_data = eto2[idx_from_hru][(start_date <= eto2_date_list) & (eto2_date_list <= end_date)]
     irr_data = irr[idx_from_hru][(start_date <= irr_date_list) & (irr_date_list <= end_date)]
-    axes[num].plot(plot_date_list, np.nancumsum(et2_data), label='ETa (OpenET)')
-    #axes[num].plot(plot_date_list, np.nancumsum(eto2_data), label='ETo (OpenET)')
-    axes[num].plot(plot_date_list, np.nancumsum(actet_data), label='ETa (NHM/PRMS)', color='tab:green')
-    #axes[num].plot(plot_date_list, np.nancumsum(potet_data), label='ETo (NHM/PRMS)')
-    axes[num].plot(plot_date_list, np.nancumsum(irr_data), label='Applied Irrigation', color='tab:purple')
+    ppt_data = ppt[idx_from_hru][(start_date <= ppt_date_list) & (ppt_date_list <= end_date)]
+    moist_data = moist[idx_from_hru][(start_date <= moist_date_list) & (moist_date_list <= end_date)]    
+    ax2 = axes[num].twinx()
+    ax2.plot(plot_date_list, np.nancumsum(et2_data), label='ETa (OpenET)', color='tab:blue')
+    ax2.plot(plot_date_list, np.nancumsum(actet_data), label='ETa (NHM/PRMS)', color='tab:green')
+    ax2.plot(plot_date_list, np.nancumsum(irr_data), label='Applied Irrigation', color='tab:purple')
+    ax2.plot(plot_date_list, np.nancumsum(ppt_data), label='Precipitation', color='tab:pink')
+    axes[num].fill_between(x=plot_date_list, y1=moist_data, label='Capillary Storage', alpha=0.3, color='tab:gray')
     if num == 0:
-        handles, labels = axes[num].get_legend_handles_labels()
-    axes_dates = [calendar.month_name[i][0:3] for i in [10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9]]
+        handles1, labels1 = axes[num].get_legend_handles_labels()
+        handles2, labels2 = ax2.get_legend_handles_labels()
+        handles = handles1 + handles2
+        labels = labels1 + labels2
+    axes_dates = [calendar.month_name[i][0:3] for i in [4, 5, 6, 7, 8, 9]]
     axes[num].set_xticks(np.arange(mpl_dates.date2num(start_date), mpl_dates.date2num(end_date), 30.42))
     axes[num].set_xticklabels(axes_dates, rotation=-30, ha='left')
     axes[num].set_title(hru + desc[num] + '\nIrrigated Fraction: ' + str(np.round(ag_frac, 2)))
+    if (num == 2) or (num == 5):
+        ax2.set_ylabel('Cumulative\nInches', rotation=0, ma='left', ha='left')  #, ha='right', va='center', ma='left', rotation=0)
+    ax2.set_ylim([0, 32])
     if (num == 0) or (num == 3):
-        axes[num].set_ylabel('Inches', ha='right', va='center', ma='left', rotation=0)
+        axes[num].set_ylabel('Capillary\nStorage\n(Inches)', ha='right', va='center', ma='left', rotation=0)
+    axes[num].set_ylim([0, 3.2])
 fig.legend(handles, labels)
 fig.tight_layout()
-fig.suptitle('WY2016 Cumulative ET and Irrigation:\nUpper Colorado River Basin', fontsize=20)
+fig.suptitle('Growing Season 2016 Cumulative ET,\nPrecipitation, and Irrigation', fontsize=20)
 fig.subplots_adjust(top=0.8)
+fig.subplots_adjust(right=0.9)
 fig.savefig('ET_irr.png', dpi=500)
 
